@@ -20,4 +20,5 @@ Route.post('tasks', 'TaskController.store')
 Route.get('/vote', 'TaskController.vote')
 
 Route.delete('tasks/:id', 'TaskController.destroy')
+Route.get('/poll/:id', 'TaskController.poll')
 // Route.on('/').render('welcome')

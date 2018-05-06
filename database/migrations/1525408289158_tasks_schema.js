@@ -7,6 +7,7 @@ class TasksSchema extends Schema {
     this.create('tasks', (table) => {
       table.increments()
       table.string('title')
+      table.integer('nu')
       table.timestamps()
     })
   }

@@ -45,13 +45,29 @@ class TaskController {
     return response.redirect('back')
   }
 
+  async poll ({ params, session, response}) {
+    const userNu = session.get('user' + params.id)
+    if (userNu > 4) {
+      session.flash({ notification: '超过投票次数' })
+    } else {
+      const task = await Task.find(params.id)
+      task.nu = task.nu + 1
+      await task.save()
+      session.put('user' + params.id, userNu + 1)
+    }
+    
+    return response.redirect('back')
+    
+  }
+
   async vote ({ view, request }) {
-    const tasks = await Task.all()
+    var tasks = {};
     if (request.input('title') != null) {
-      const tasks = await Task.query()
+      tasks = await Task.query()
         .where('title', '=', request.input('title'))
         .fetch()
-      console.log(tasks);
+    } else {
+      tasks = await Task.all()
     }
 
     return view.render('tasks.vote', { tasks: tasks.toJSON( )})
