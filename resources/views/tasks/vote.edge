@@ -1,0 +1,73 @@
+@layout('master')
+
+@section('content')
+    <div class="box">
+        <h2 class="title">投票</h2>
+
+        <form action="/vote" method="get">
+
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input class="input" type="text" name="title" value="{{ old('title', '') }}" placeholder="名称">
+                </div>
+                <div class="control">
+                    <button type="submit" class="button is-primary">
+                       确认
+                    </button>
+                </div>
+            </div>
+
+            {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('title'), hasErrorFor('title')) }}
+        </form>
+    </div>
+
+    @if(old('notification'))
+        <div class="notification is-success">
+            {{ old('notification') }}
+        </div>
+    @endif
+
+    <div class="box">
+    <h1 class="title">列表</h1>
+
+    <table class="table is-bordered is-striped is-narrow is-fullwidth">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>票数</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @each(task in tasks)
+                <tr>
+                    <td>
+                        {{ ($loop.index + 1) }}
+                    </td>
+                    <td>
+                        {{ task.title }}
+                    </td>
+                    <td>
+                    100
+                    </td>
+                    <td>
+                        <form action="{{ 'tasks/' + task.id + '?_method=DELETE' }}" method="POST">
+                            {{ csrfField() }}
+
+                            <button type="submit" class="button is-danger is-outlined">
+                                <span>DELETE</span>
+                                <span class="icon is-small">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            @else
+                <td colspan="3" class="has-text-centered">暂无选项</td>
+            @endeach
+        </tbody>
+    </table>
+</div>
+@endsection
