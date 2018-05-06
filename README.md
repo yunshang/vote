@@ -3,7 +3,7 @@
 ## Getting Started
 
 ```
-git clone git@github.com:ammezie/adonis-tasks.git
+git clone git@github.com:yunshang/vote.git
 ```
 
 ### Setup
