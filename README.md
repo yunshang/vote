@@ -6,15 +6,13 @@
 git clone git@github.com:ammezie/adonis-tasks.git
 ```
 
-## Setup
+### Setup
 
 Run the command below to install dependencies
 
 ```bash
 npm install
 ```
-
-or manually clone the repo and then run `npm install`.
 
 ### Environment variables
 
